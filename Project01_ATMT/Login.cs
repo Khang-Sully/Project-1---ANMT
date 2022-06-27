@@ -47,7 +47,7 @@ namespace Project01_ATMT
                 }
                 else
                 {
-                    MessageBox.Show(isPassed);
+                    MessageBox.Show("Username or password incorrect!");
                 }
             }
             catch (Exception login)

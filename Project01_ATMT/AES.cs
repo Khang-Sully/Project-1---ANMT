@@ -9,17 +9,15 @@ namespace Project01_ATMT
 {
     public class AES
     {
-        private static byte[] iv = Encoding.UTF8.GetBytes("!QAZ2WSX#EDC4RFV");
-        private static byte[] key = new byte[32] {
-            // 19127443: Ho Dang Khoa
-            0x31, 0x39, 0x31, 0x32, 0x37, 0x34, 0x34, 0x33,
-            // 19127436: Tang Tuong Khang
-            0x31, 0x39, 0x31, 0x32, 0x37, 0x34, 0x33, 0x36,
-            // 19127325: Nguyen Huu Hoang An
-            0x31, 0x39, 0x31, 0x32, 0x37, 0x33, 0x32, 0x35,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-        };
-        private static AesCryptoServiceProvider CreateProvider()
+        private static byte[] iv;
+        private static byte[] key;
+        public AES(byte[] passphare)
+        {
+            iv = Encoding.UTF8.GetBytes("!QAZ2WSX#EDC4RFV");
+            key = passphare;
+        }
+
+    private static AesCryptoServiceProvider CreateProvider()
         {
             AesCryptoServiceProvider cp = new AesCryptoServiceProvider();
             cp.KeySize = 256;
@@ -55,7 +53,6 @@ namespace Project01_ATMT
                 throw new ArgumentNullException("key");
             using (AesCryptoServiceProvider csp = CreateProvider())
             {
-
                 try
                 {
                     ICryptoTransform decrypter = csp.CreateDecryptor();

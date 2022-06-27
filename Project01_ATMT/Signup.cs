@@ -26,22 +26,6 @@ namespace Project01_ATMT
             t_dob.ReadOnly      = false;
             t_address.ReadOnly  = false;
         }
-        private void Sign_up()
-        {
-            EnableEditAllTextBox();
-            DTO_Account tempAcc = new DTO_Account();
-
-            tempAcc.Email = t_email.Text.ToString();
-            String pw = t_password.Text.ToString();
-            tempAcc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(pw));
-
-            tempAcc.Phone = t_phone.Text.ToString();
-            tempAcc.Fullname = t_fullname.Text.ToString();
-            tempAcc.dob = t_dob.Text.ToString();
-            tempAcc.Address = t_address.Text.ToString();
-
-            DAO_Account.get_Instance().addAccount(tempAcc);
-        }
         private void btn_signup_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(t_email.Text) || String.IsNullOrEmpty(t_password.Text) || String.IsNullOrEmpty(t_phone.Text) || String.IsNullOrEmpty(t_fullname.Text) || String.IsNullOrEmpty(t_dob.Text) || String.IsNullOrEmpty(t_address.Text))
@@ -51,16 +35,42 @@ namespace Project01_ATMT
             } 
             try
             {
-                Sign_up();
-                MessageBox.Show("Sign up Successfully!");
+                EnableEditAllTextBox();
+                DTO_Account tempAcc = new DTO_Account();
+
+                tempAcc.Email = t_email.Text.ToString();
+                String pw = t_password.Text.ToString();
+                tempAcc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(pw));
+
+                tempAcc.Phone = t_phone.Text.ToString();
+                tempAcc.Fullname = t_fullname.Text.ToString();
+                tempAcc.dob = t_dob.Text.ToString();
+                tempAcc.Address = t_address.Text.ToString();
+
+                AES aes = new AES(tempAcc.Password);
+                RSA rsa = new RSA(aes);
+                DTO_rsakey tempRsaKEy = new DTO_rsakey();
+                tempRsaKEy.Email = t_email.Text.ToString();
+                ////////////
+                string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc);
+               
+                if (isPassed.Equals("1"))
+                {
+                    MessageBox.Show("Sign up Successfully!");
+                    Login l = new Login();
+                    this.Hide();
+                    l.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Email already exists!");
+                }
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Failed to sign up new account!");
             }
-            Login l = new Login();
-            this.Hide();
-            l.ShowDialog();
+
         }
 
         private void btn_login_Click(object sender, EventArgs e)

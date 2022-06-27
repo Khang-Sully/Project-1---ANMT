@@ -16,11 +16,10 @@ namespace Project01_ATMT
         private RSAParameters publicKey;
         private RSAParameters privateKey;
 
-        public RSA()
+        public RSA(AES aes)
         {
-            privateKey = rsa.ExportParameters(true);
             publicKey = rsa.ExportParameters(false);
-
+            privateKey = rsa.ExportParameters(true);
         }
 
         public String getPublicKey()

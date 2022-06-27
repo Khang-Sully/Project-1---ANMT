@@ -20,6 +20,7 @@ create table Account
 create table RSA_KEY
 (
 	_Email varchar(100) not null,
+	_Passphare varbinary(max),
 	_Kpublic varbinary(max),
 	_Kprivate varbinary(max)
 	constraint PK_RSA_Key primary key(_Email)
@@ -125,6 +126,7 @@ create procedure SP_SIGN_UP
 	@Fullname varchar(200),
 	@Phone varchar(20),
 	@Address varchar(200)
+
 )
 as
 	Begin
@@ -134,11 +136,25 @@ as
 			begin
 				insert into Account(_Email, _Password, _Phone, _Fullname, _Dob, _Address)
 				values (@Email, @Password, @Phone, @Fullname, @Dob, @Address) 
-				return 1
+				select 1 return
 			end
 		else
-			return 0
+			select 0 return
 	end
 
+go
+
+create procedure SP_SU_ADD_RSAKEY
+(
+	@Email varchar(100),
+	@Password varbinary(max),
+	@Kpublic varbinary(max),
+	@Kprivate varbinary(max)
+)
+as
+	Begin
+		insert into RSA_KEY(_Email, _Passphare, _Kpublic, _Kprivate)
+		values (@Email, @Password, @Kpublic, @Kprivate)
+	end
 
 select * from Account

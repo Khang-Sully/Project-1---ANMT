@@ -36,11 +36,14 @@ namespace Project01_ATMT
 
             return result;
         }
-        public void addAccount(DTO_Account acc)
+        public string AddAccount(DTO_Account acc)
         {
             DataProvider dp = new DataProvider();
             object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address};
-            dp.ExecuteQuery("exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
+            DataTable dt = dp.ExecuteQuery("exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
+            string isPassed = dt.Rows[0][0].ToString();
+
+            return isPassed;
         }
         public void EditAccount(DTO_Account acc)
         {

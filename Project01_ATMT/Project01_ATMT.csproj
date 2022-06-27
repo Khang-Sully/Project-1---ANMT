@@ -48,8 +48,10 @@
   <ItemGroup>
     <Compile Include="AES.cs" />
     <Compile Include="DAO_Account.cs" />
+    <Compile Include="DAO_rsakey.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="DTO_Account.cs" />
+    <Compile Include="DTO_rsakey.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

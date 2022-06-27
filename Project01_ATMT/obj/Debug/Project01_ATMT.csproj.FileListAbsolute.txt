@@ -11,3 +11,16 @@ C:\HK3_2022\ATMT\project01\Project01_ATMT\Project01_ATMT\obj\Debug\Project01_ATM
 C:\HK3_2022\ATMT\project01\Project01_ATMT\Project01_ATMT\obj\Debug\Project01_ATMT.exe
 C:\HK3_2022\ATMT\project01\Project01_ATMT\Project01_ATMT\obj\Debug\Project01_ATMT.pdb
 C:\HK3_2022\ATMT\project01\Project01_ATMT\Project01_ATMT\bin\Debug\Project01_ATMT.pdb
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\bin\Debug\Project01_ATMT.exe.config
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\bin\Debug\Project01_ATMT.exe
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\bin\Debug\Project01_ATMT.pdb
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.csproj.AssemblyReference.cache
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.csproj.SuggestedBindingRedirects.cache
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.Login.resources
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.Menu.resources
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.Properties.Resources.resources
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.Signup.resources
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.csproj.GenerateResource.cache
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.csproj.CoreCompileInputs.cache
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.exe
+C:\Users\KhoaH\Documents\GitHub\Project-1---ANMT\Project01_ATMT\obj\Debug\Project01_ATMT.pdb
