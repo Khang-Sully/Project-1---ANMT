@@ -36,6 +36,14 @@ namespace Project01_ATMT
 
             return result;
         }
+        public DataTable getUserInfo(String loginEmail) {
+            DataProvider dp = new DataProvider();
+            object[] email = new object[1] { loginEmail };
+            DataTable dt = dp.ExecuteQuery("EXEC SP_SEL_ACCOUNT @EMAIL", email);
+            return dt;
+
+        }
+
         public string AddAccount(DTO_Account acc)
         {
             DataProvider dp = new DataProvider();
@@ -49,8 +57,8 @@ namespace Project01_ATMT
         public void EditAccount(DTO_Account acc)
         {
             DataProvider dp = new DataProvider();
-            object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname,acc.dob, acc.Address};
-            dp.ExecuteQuery("exec SP_UPDATE_ACCOUNT @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
+            object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address};
+            dp.ExecuteQuery("exec SP_UPDATE_ACCOUNT  @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
         }
     }
 }

@@ -29,7 +29,6 @@ namespace Project01_ATMT
         }
         public void EnableEditAllTextBox()
         {
-            t_Email.ReadOnly = false;
             t_Password.ReadOnly = false;
             t_Phone.ReadOnly = false;
             t_FullName.ReadOnly = false;
@@ -48,9 +47,7 @@ namespace Project01_ATMT
 
         public void loadInfor(string loginEmail)
         {
-            DataProvider dp = new DataProvider();
-            object[] email = new object[1] { loginEmail };
-            DataTable data = dp.ExecuteQuery("EXEC SP_SEL_ACCOUNT @EMAIL ", email);
+            DataTable data = DAO_Account.get_Instance().getUserInfo(loginEmail);
             this.EnableEditAllTextBox();
             this.t_Email.Text = data.Rows[0][0].ToString();
             this.t_Password.Text = "Hidden";
@@ -73,9 +70,16 @@ namespace Project01_ATMT
                 MessageBox.Show("Text box cannot be left blank");
                 return;
             }
-            DataProvider dp = new DataProvider();
-            object[] editedInfo = new object[6] { t_Email.Text, SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text)), t_Phone.Text, t_FullName.Text, t_dob.Text, t_Address.Text };
-            dp.ExecuteQuery("EXEC SP_UPDATE_ACCOUNT @EMAIL, @PASSWORD, @PHONE, @FULLNAME, @DOB, @ADDRESS ", editedInfo);
+
+            DTO_Account acc = new DTO_Account();
+            acc.Email = t_Email.Text.ToString();
+            acc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text));
+            acc.Phone = t_Phone.Text.ToString();
+            acc.Fullname = t_FullName.Text.ToString();
+            acc.dob = t_dob.Text.ToString();
+            acc.Address = t_Address.Text.ToString();
+
+            DAO_Account.get_Instance().EditAccount(acc);
             MessageBox.Show("Successfully edited information!");
             this.t_Password.Text = "Hidden*";
 

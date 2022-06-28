@@ -108,9 +108,7 @@ as
 			_Fullname = @Fullname,
 			_Dob = @Dob,
 			_Address = @Address
-		where
-			_Email = @Email
-		select * from Account where _Email = @Email
+		from Account where _Email = @Email
 	end
 go
 
@@ -137,9 +135,9 @@ create procedure SP_SIGN_UP
 	@Dob varchar(20),
 	@Fullname varchar(200),
 	@Phone varchar(20),
-	@Address varchar(200),
-	@KPublic varbinary(max),
-	@KPrivate varbinary(max)
+	@Address varchar(200)--,
+	--@KPublic varbinary(max),
+	--@KPrivate varbinary(max)
 
 )
 as
@@ -150,8 +148,8 @@ as
 			begin
 				insert into Account(_Email, _Password, _Phone, _Fullname, _Dob, _Address)
 				values (@Email, @Password, @Phone, @Fullname, @Dob, @Address) 
-				insert into RSA_KEY(_Email, _Passphare, _Kpublic, _Kprivate)
-				values (@Email, @Password, @KPublic, @KPrivate)
+				--insert into RSA_KEY(_Email, _Passphare, _Kpublic, _Kprivate)
+				--values (@Email, @Password, @KPublic, @KPrivate)
 				select 1 return
 			end
 		else
@@ -177,3 +175,10 @@ as
 	end
 
 select * from Account
+
+exec sp_executesql N'EXEC SP_UPDATE_ACCOUNT @EMAIL, @PASSWORD, @PHONE, @FULLNAME, @DOB, @ADDRESS ',N'@EMAIL, nvarchar(13),@PASSWORD, varbinary(32),@PHONE, nvarchar(3),@FULLNAME, nvarchar(3),@DOB, nvarchar(3),@ADDRESS nvarchar(3)',
+@EMAIL,=N'123@gmail.com',@PASSWORD,=0x5994471ABB01112AFCC18159F6CC74B4F511B99806DA59B3CAF5A9C173CACFC5,@PHONE,=N'123',@FULLNAME,=N'123',@DOB,=N'123',@ADDRESS=N'123'
+
+exec sp_executesql N'EXEC SP_LOG_IN @Email , @Password',N'@Email nvarchar(13),@Password varbinary(32)',@Email=N'123@gmail.com',@Password=0xA665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3
+
+exec sp_executesql N'exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address',N'@Email nvarchar(14),@Password varbinary(32),@Phone nvarchar(3),@Fullname nvarchar(6),@Dob nvarchar(3),@Address nvarchar(3)',@Email=N'test@gmail.com',@Password=0xA665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3,@Phone=N'123',@Fullname=N'Testet',@Dob=N'123',@Address=N'123'
