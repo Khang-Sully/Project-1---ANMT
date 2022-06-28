@@ -159,6 +159,8 @@ as
 go
 
 
+drop procedure if exists SP_SU_ADD_RSAKEY
+go
 create procedure SP_SU_ADD_RSAKEY
 (
 	@Email varchar(100),
