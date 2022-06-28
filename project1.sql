@@ -75,6 +75,8 @@ as
 
 go
 
+drop procedure if exists SP_SEL_ACCOUNT
+go
 create procedure SP_SEL_ACCOUNT
 (
 	@Email varchar(100)

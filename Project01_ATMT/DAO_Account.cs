@@ -45,6 +45,7 @@ namespace Project01_ATMT
 
             return isPassed;
         }
+
         public void EditAccount(DTO_Account acc)
         {
             DataProvider dp = new DataProvider();

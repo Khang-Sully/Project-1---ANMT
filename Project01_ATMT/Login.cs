@@ -25,35 +25,35 @@ namespace Project01_ATMT
             string password = t_Password.Text.ToString();
 
             object[] hash = new object[2] { email, SHA256.Hash(Encoding.ASCII.GetBytes(password)) };
-            try
-            {
-                DataProvider dp = new DataProvider();
-                DataTable dt = dp.ExecuteQuery("EXEC SP_LOG_IN @Email , @Password", hash);
-                String isPassed = dt.Rows[0][0].ToString();
+            //try
+            //{
+            DataProvider dp = new DataProvider();
+            DataTable dt = dp.ExecuteQuery("EXEC SP_LOG_IN @Email , @Password", hash);
+            String isPassed = dt.Rows[0][0].ToString();
                 
-                if (isPassed.Equals("1")) {
-                    if (Login.isLogged == false)
-                    {
-                        MessageBox.Show("Logged in successfully!");
-                        Login.isLogged = true;
-                        Menu m = new Menu();
-                        this.Hide();
-                        m.ShowDialog();
-                    }
-                    else { 
-                        MessageBox.Show("The previous account is not logged out!");
-                        this.Close();
-                    }
-                }
-                else
+            if (isPassed.Equals("1")) {
+                if (Login.isLogged == false)
                 {
-                    MessageBox.Show("Username or password incorrect!");
+                    MessageBox.Show("Logged in successfully!");
+                    Login.isLogged = true;
+                    Menu m = new Menu(email);
+                    this.Hide();
+                    m.ShowDialog();
+                }
+                else { 
+                    MessageBox.Show("The previous account is not logged out!");
+                    this.Close();
                 }
             }
-            catch (Exception login)
+            else
+            {
+                MessageBox.Show("Username or password incorrect!");
+            }
+            //}
+/*            catch (Exception login)
             {
                 MessageBox.Show("Error ~ Username or password incorrect!");
-            }
+            }*/
         }
 
         private void btn_signup_Click(object sender, EventArgs e)
