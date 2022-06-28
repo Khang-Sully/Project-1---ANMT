@@ -46,6 +46,8 @@ add constraint FK_FILE_AC2 foreign key(_DestEmail) references ACCOUNT(_Email)
 
 go
 
+drop procedure if exists SP_INS_ACCOUNT
+go
 create procedure SP_INS_ACCOUNT
 (
 	@Email varchar(100),
@@ -63,6 +65,8 @@ as
 
 go
 
+drop procedure if exists SP_SEL_All_ACCOUNTS
+go
 create procedure SP_SEL_All_ACCOUNTS
 as
 	begin
@@ -82,7 +86,8 @@ as
 
 go
 
-
+drop procedure if exists SP_UPDATE_ACCOUNT
+go
 create procedure SP_UPDATE_ACCOUNT
 (
 	@Email varchar(100),
@@ -107,6 +112,8 @@ as
 	end
 go
 
+drop procedure if exists SP_LOG_IN
+go
 create procedure SP_LOG_IN
 (
 	@Email varchar(100),
@@ -118,6 +125,9 @@ as
 	end
 go
 
+
+drop procedure if exists SP_SIGN_UP
+go
 create procedure SP_SIGN_UP
 (
 	@Email varchar(100),
@@ -125,7 +135,9 @@ create procedure SP_SIGN_UP
 	@Dob varchar(20),
 	@Fullname varchar(200),
 	@Phone varchar(20),
-	@Address varchar(200)
+	@Address varchar(200),
+	@KPublic varbinary(max),
+	@KPrivate varbinary(max)
 
 )
 as
@@ -136,6 +148,8 @@ as
 			begin
 				insert into Account(_Email, _Password, _Phone, _Fullname, _Dob, _Address)
 				values (@Email, @Password, @Phone, @Fullname, @Dob, @Address) 
+				insert into RSA_KEY(_Email, _Passphare, _Kpublic, _Kprivate)
+				values (@Email, @Password, @KPublic, @KPrivate)
 				select 1 return
 			end
 		else
@@ -143,6 +157,7 @@ as
 	end
 
 go
+
 
 create procedure SP_SU_ADD_RSAKEY
 (
