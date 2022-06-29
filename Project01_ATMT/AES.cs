@@ -17,7 +17,7 @@ namespace Project01_ATMT
             key = passphare;
         }
 
-    private static AesCryptoServiceProvider CreateProvider()
+        private AesCryptoServiceProvider CreateProvider()
         {
             AesCryptoServiceProvider cp = new AesCryptoServiceProvider();
             cp.KeySize = 256;
@@ -28,7 +28,7 @@ namespace Project01_ATMT
             cp.IV = iv;
             return cp;
         }
-        public static byte[] Encrypt(byte[] data)
+        public byte[] Encrypt(byte[] data)
         {
             byte[] enc;
             if (data == null || data.Length <= 0)
@@ -44,7 +44,7 @@ namespace Project01_ATMT
             return enc;
         }
 
-        public static byte[] Decrypt(byte[] data)
+        public byte[] Decrypt(byte[] data)
         {
             byte[] dec;
             if (data == null || data.Length <= 0)

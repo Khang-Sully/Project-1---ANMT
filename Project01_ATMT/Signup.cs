@@ -33,9 +33,9 @@ namespace Project01_ATMT
             {
                 MessageBox.Show("Text box cannot be left blank");
                 return;
-            } 
-            /*try
-            {*/
+            }
+            try
+            {
                 EnableEditAllTextBox();
                 DTO_Account tempAcc = new DTO_Account();
 
@@ -48,13 +48,21 @@ namespace Project01_ATMT
                 tempAcc.dob = t_dob.Text.ToString();
                 tempAcc.Address = t_address.Text.ToString();
 
-                AES aes = new AES(tempAcc.Password);
                 RSA rsa = new RSA();
                 string PublicKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_publicKey.txt";
                 string PrivateKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_privateKey.txt";
-                rsa.generateKeys(PublicKeyFileName, PrivateKeyFileName);
-                ////////////
-                string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc, PublicKeyFileName, PrivateKeyFileName);
+                rsa.generateKeys(@PublicKeyFileName, @PrivateKeyFileName);
+                
+                AES aes = new AES(tempAcc.Password);
+                string privateKeyunCrepted = System.IO.File.ReadAllText(@PrivateKeyFileName);
+                byte[] tempPrivateKeyEncrypted = aes.Encrypt(Encoding.Unicode.GetBytes(privateKeyunCrepted));
+                string PrivateKeyEncrypted = BitConverter.ToString(tempPrivateKeyEncrypted);
+
+                StreamWriter sr = new System.IO.StreamWriter(@PrivateKeyFileName);
+                sr.Write(PrivateKeyEncrypted);
+                sr.Close();
+
+                string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc, @PublicKeyFileName, @PrivateKeyFileName);
                
                 if (isPassed.Equals("1"))
                 {
@@ -67,12 +75,11 @@ namespace Project01_ATMT
                 {
                     MessageBox.Show("Email already exists!");
                 }
-            /*}
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Failed to sign up new account!");
-            }*/
-
+            }
         }
 
         private void btn_login_Click(object sender, EventArgs e)
