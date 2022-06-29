@@ -12,12 +12,14 @@ namespace Project01_ATMT
 {
     public partial class Menu : Form
     {
+        public List<DTO_Account> listOfUser;
+        public bool Edited = false;
         public Menu(string LoginEmail)
         {
             InitializeComponent();
-            loadInfor(LoginEmail);
-            SetAllTextBoxToReadOnly();
             LoadListData();
+            loadInfor(LoginEmail);
+            
         }
         public void SetAllTextBoxToReadOnly()
         {
@@ -36,16 +38,6 @@ namespace Project01_ATMT
             t_dob.ReadOnly = false;
             t_Address.ReadOnly = false;
         }
-        public void ClearAllTextBox()
-        {
-            t_Email.Clear();
-            t_Password.Clear();
-            t_Phone.Clear();
-            t_FullName.Clear();
-            t_dob.Clear();
-            t_Address.Clear();
-        }
-
         public void loadInfor(string loginEmail)
         {
             DataTable data = DAO_Account.get_Instance().getUserInfo(loginEmail);
@@ -58,12 +50,11 @@ namespace Project01_ATMT
             this.t_Address.Text = data.Rows[0][5].ToString();
             SetAllTextBoxToReadOnly();
         }
-
         private void btn_edit_Click(object sender, EventArgs e)
         {
             EnableEditAllTextBox();
+            Edited = true;
         }
-
         private void btn_save_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(t_Email.Text) || String.IsNullOrEmpty(t_Password.Text) || String.IsNullOrEmpty(t_Phone.Text) || String.IsNullOrEmpty(t_FullName.Text) || String.IsNullOrEmpty(t_dob.Text) || String.IsNullOrEmpty(t_Address.Text))
@@ -106,9 +97,8 @@ namespace Project01_ATMT
         }
         public void LoadListData()
         {
-            List<DTO_Account> listOfUser;
             listOfUser = DAO_Account.get_Instance().LoadUserList();
-            DataTable dt =  ListToDataTable(new List<String> { "Email", "Phone", "Fullname" }, listOfUser);
+            DataTable dt =  ListToDataTable(new List<String>() { "Email", "Phone", "Fullname" }, listOfUser);
 
             this.dgv_userlist.DataSource = dt;
             this.dgv_userlist.Update();

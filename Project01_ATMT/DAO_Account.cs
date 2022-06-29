@@ -26,8 +26,7 @@ namespace Project01_ATMT
         {
             List<DTO_Account> result = new List<DTO_Account>();
             DataProvider dp = new DataProvider();
-            String query = "exec SP_SEL_All_ACCOUNTS";
-            DataTable dt = dp.ExecuteQuery(query);
+            DataTable dt = dp.ExecuteQuery("exec SP_SEL_All_ACCOUNTS");
             foreach (DataRow dtr in dt.Rows)
             {
                 DTO_Account acc = new DTO_Account(dtr);
@@ -40,8 +39,8 @@ namespace Project01_ATMT
             DataProvider dp = new DataProvider();
             object[] email = new object[1] { loginEmail };
             DataTable dt = dp.ExecuteQuery("EXEC SP_SEL_ACCOUNT @EMAIL", email);
-            return dt;
 
+            return dt;
         }
 
         public string AddAccount(DTO_Account acc)

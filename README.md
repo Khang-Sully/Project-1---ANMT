@@ -18,9 +18,15 @@ III. [Developer Contacts](#III.)
 
 1. <b>Login.cs</b> - User login interface and login interactive functions
 
+![Login Screen](./pic/LoginScr.JPG)
+
 2. <b>Signup.cs</b> - User signup interface and signup interactive functions
 
+![Sigup Screen](./pic/SignupScr.JPG)
+
 3. <b>Menu.cs</b> - User menu includes user information, user list, functions, notifications
+
+![Menu Screen](./pic/MenuScr.JPG)
 
 - <b>Cryptography</b>
 
