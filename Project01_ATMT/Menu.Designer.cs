@@ -82,9 +82,9 @@
             this.groupBox1.Controls.Add(this.t_FullName);
             this.groupBox1.Controls.Add(this.t_Email);
             this.groupBox1.Location = new System.Drawing.Point(9, 10);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(466, 182);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -93,7 +93,7 @@
             // btn_save
             // 
             this.btn_save.Location = new System.Drawing.Point(298, 155);
-            this.btn_save.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_save.Margin = new System.Windows.Forms.Padding(2);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(75, 22);
             this.btn_save.TabIndex = 2;
@@ -104,7 +104,7 @@
             // btn_edit
             // 
             this.btn_edit.Location = new System.Drawing.Point(128, 155);
-            this.btn_edit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_edit.Margin = new System.Windows.Forms.Padding(2);
             this.btn_edit.Name = "btn_edit";
             this.btn_edit.Size = new System.Drawing.Size(75, 22);
             this.btn_edit.TabIndex = 2;
@@ -175,7 +175,7 @@
             // t_Address
             // 
             this.t_Address.Location = new System.Drawing.Point(298, 119);
-            this.t_Address.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_Address.Margin = new System.Windows.Forms.Padding(2);
             this.t_Address.Name = "t_Address";
             this.t_Address.Size = new System.Drawing.Size(146, 20);
             this.t_Address.TabIndex = 0;
@@ -183,7 +183,7 @@
             // t_Phone
             // 
             this.t_Phone.Location = new System.Drawing.Point(58, 119);
-            this.t_Phone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_Phone.Margin = new System.Windows.Forms.Padding(2);
             this.t_Phone.Name = "t_Phone";
             this.t_Phone.Size = new System.Drawing.Size(146, 20);
             this.t_Phone.TabIndex = 0;
@@ -191,7 +191,7 @@
             // t_dob
             // 
             this.t_dob.Location = new System.Drawing.Point(298, 72);
-            this.t_dob.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_dob.Margin = new System.Windows.Forms.Padding(2);
             this.t_dob.Name = "t_dob";
             this.t_dob.Size = new System.Drawing.Size(146, 20);
             this.t_dob.TabIndex = 0;
@@ -199,7 +199,7 @@
             // t_Password
             // 
             this.t_Password.Location = new System.Drawing.Point(58, 72);
-            this.t_Password.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_Password.Margin = new System.Windows.Forms.Padding(2);
             this.t_Password.Name = "t_Password";
             this.t_Password.PasswordChar = '*';
             this.t_Password.Size = new System.Drawing.Size(146, 20);
@@ -208,7 +208,7 @@
             // t_FullName
             // 
             this.t_FullName.Location = new System.Drawing.Point(298, 24);
-            this.t_FullName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_FullName.Margin = new System.Windows.Forms.Padding(2);
             this.t_FullName.Name = "t_FullName";
             this.t_FullName.Size = new System.Drawing.Size(146, 20);
             this.t_FullName.TabIndex = 0;
@@ -216,7 +216,7 @@
             // t_Email
             // 
             this.t_Email.Location = new System.Drawing.Point(58, 24);
-            this.t_Email.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_Email.Margin = new System.Windows.Forms.Padding(2);
             this.t_Email.Name = "t_Email";
             this.t_Email.Size = new System.Drawing.Size(146, 20);
             this.t_Email.TabIndex = 0;
@@ -225,9 +225,9 @@
             // 
             this.groupBox2.Controls.Add(this.dgv_userlist);
             this.groupBox2.Location = new System.Drawing.Point(9, 197);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(466, 255);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -236,8 +236,9 @@
             // dgv_userlist
             // 
             this.dgv_userlist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_userlist.Cursor = System.Windows.Forms.Cursors.No;
             this.dgv_userlist.Location = new System.Drawing.Point(4, 17);
-            this.dgv_userlist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgv_userlist.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_userlist.Name = "dgv_userlist";
             this.dgv_userlist.RowHeadersWidth = 51;
             this.dgv_userlist.RowTemplate.Height = 24;
@@ -256,9 +257,9 @@
             this.groupBox3.Controls.Add(this.t_filepath);
             this.groupBox3.Controls.Add(this.btn_upload);
             this.groupBox3.Location = new System.Drawing.Point(479, 10);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(272, 234);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
@@ -268,7 +269,7 @@
             // 
             this.rb_sign.AutoSize = true;
             this.rb_sign.Location = new System.Drawing.Point(207, 124);
-            this.rb_sign.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb_sign.Margin = new System.Windows.Forms.Padding(2);
             this.rb_sign.Name = "rb_sign";
             this.rb_sign.Size = new System.Drawing.Size(46, 17);
             this.rb_sign.TabIndex = 5;
@@ -280,7 +281,7 @@
             // 
             this.rb_encrypt.AutoSize = true;
             this.rb_encrypt.Location = new System.Drawing.Point(24, 124);
-            this.rb_encrypt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb_encrypt.Margin = new System.Windows.Forms.Padding(2);
             this.rb_encrypt.Name = "rb_encrypt";
             this.rb_encrypt.Size = new System.Drawing.Size(61, 17);
             this.rb_encrypt.TabIndex = 5;
@@ -292,7 +293,7 @@
             // 
             this.rb_decrypt.AutoSize = true;
             this.rb_decrypt.Location = new System.Drawing.Point(116, 124);
-            this.rb_decrypt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb_decrypt.Margin = new System.Windows.Forms.Padding(2);
             this.rb_decrypt.Name = "rb_decrypt";
             this.rb_decrypt.Size = new System.Drawing.Size(62, 17);
             this.rb_decrypt.TabIndex = 5;
@@ -313,7 +314,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(96, 80);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(153, 20);
             this.textBox1.TabIndex = 3;
@@ -321,7 +322,7 @@
             // t_saveasPath
             // 
             this.t_saveasPath.Location = new System.Drawing.Point(96, 187);
-            this.t_saveasPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_saveasPath.Margin = new System.Windows.Forms.Padding(2);
             this.t_saveasPath.Name = "t_saveasPath";
             this.t_saveasPath.Size = new System.Drawing.Size(153, 20);
             this.t_saveasPath.TabIndex = 2;
@@ -329,7 +330,7 @@
             // btn_Saveas
             // 
             this.btn_Saveas.Location = new System.Drawing.Point(22, 187);
-            this.btn_Saveas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Saveas.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Saveas.Name = "btn_Saveas";
             this.btn_Saveas.Size = new System.Drawing.Size(56, 19);
             this.btn_Saveas.TabIndex = 1;
@@ -339,7 +340,7 @@
             // t_filepath
             // 
             this.t_filepath.Location = new System.Drawing.Point(96, 35);
-            this.t_filepath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.t_filepath.Margin = new System.Windows.Forms.Padding(2);
             this.t_filepath.Name = "t_filepath";
             this.t_filepath.Size = new System.Drawing.Size(153, 20);
             this.t_filepath.TabIndex = 0;
@@ -347,7 +348,7 @@
             // btn_upload
             // 
             this.btn_upload.Location = new System.Drawing.Point(22, 35);
-            this.btn_upload.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_upload.Margin = new System.Windows.Forms.Padding(2);
             this.btn_upload.Name = "btn_upload";
             this.btn_upload.Size = new System.Drawing.Size(56, 19);
             this.btn_upload.TabIndex = 0;
@@ -358,9 +359,9 @@
             // 
             this.groupBox4.Controls.Add(this.dgv_notification);
             this.groupBox4.Location = new System.Drawing.Point(479, 249);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(271, 202);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
@@ -370,7 +371,7 @@
             // 
             this.dgv_notification.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_notification.Location = new System.Drawing.Point(0, 17);
-            this.dgv_notification.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgv_notification.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_notification.Name = "dgv_notification";
             this.dgv_notification.RowHeadersWidth = 51;
             this.dgv_notification.Size = new System.Drawing.Size(266, 180);
@@ -385,7 +386,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Menu";
             this.Text = "Menu";
             this.groupBox1.ResumeLayout(false);

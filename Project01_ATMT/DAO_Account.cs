@@ -58,7 +58,7 @@ namespace Project01_ATMT
         {
             DataProvider dp = new DataProvider();
             object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address};
-            dp.ExecuteQuery("exec SP_UPDATE_ACCOUNT  @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
+            dp.ExecuteQuery("exec SP_UPDATE_ACCOUNT @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
         }
     }
 }

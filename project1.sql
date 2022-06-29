@@ -70,7 +70,7 @@ go
 create procedure SP_SEL_All_ACCOUNTS
 as
 	begin
-		select _Email, _Fullname from Account
+		select * from Account
 	end
 
 go

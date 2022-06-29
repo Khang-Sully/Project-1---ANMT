@@ -17,6 +17,7 @@ namespace Project01_ATMT
             InitializeComponent();
             loadInfor(LoginEmail);
             SetAllTextBoxToReadOnly();
+            LoadListData();
         }
         public void SetAllTextBoxToReadOnly()
         {
@@ -84,6 +85,39 @@ namespace Project01_ATMT
             this.t_Password.Text = "Hidden*";
 
             SetAllTextBoxToReadOnly();
+        }
+        private DataTable ListToDataTable(List<String> col, List<DTO_Account> listOfUser) { 
+            DataTable dt = new DataTable();
+            foreach(String s in col)
+            {
+                dt.Columns.Add(s);
+            }
+
+            if (listOfUser.Count == 0)
+            {
+                return dt;
+            }
+            foreach (DTO_Account acc in listOfUser)
+            {
+                dt.Rows.Add(new object[] { acc.Email, acc.Phone, acc.Fullname });
+            }
+
+            return dt;
+        }
+        public void LoadListData()
+        {
+            List<DTO_Account> listOfUser;
+            listOfUser = DAO_Account.get_Instance().LoadUserList();
+            DataTable dt =  ListToDataTable(new List<String> { "Email", "Phone", "Fullname" }, listOfUser);
+
+            this.dgv_userlist.DataSource = dt;
+            this.dgv_userlist.Update();
+            this.dgv_userlist.Refresh();
+            //TextBox Event Full Row Selected Click
+        }
+        public void reloadListDataTable() {
+            this.dgv_userlist.DataSource = null;
+            LoadListData();
         }
     }
 }
