@@ -43,11 +43,11 @@ namespace Project01_ATMT
             return dt;
         }
 
-        public string AddAccount(DTO_Account acc)
+        public string AddAccount(DTO_Account acc, String PublicKeyFileName, String PrivateKeyFileName)
         {
             DataProvider dp = new DataProvider();
-            object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address};
-            DataTable dt = dp.ExecuteQuery("exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
+            object[] data = new object[8] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address, PublicKeyFileName , PrivateKeyFileName };
+            DataTable dt = dp.ExecuteQuery("exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address , @KPublic , @KPrivate", data);
             string isPassed = dt.Rows[0][0].ToString();
 
             return isPassed;

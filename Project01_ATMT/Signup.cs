@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Project01_ATMT
 {
@@ -33,8 +34,8 @@ namespace Project01_ATMT
                 MessageBox.Show("Text box cannot be left blank");
                 return;
             } 
-            try
-            {
+            /*try
+            {*/
                 EnableEditAllTextBox();
                 DTO_Account tempAcc = new DTO_Account();
 
@@ -48,10 +49,12 @@ namespace Project01_ATMT
                 tempAcc.Address = t_address.Text.ToString();
 
                 AES aes = new AES(tempAcc.Password);
-                
-
+                RSA rsa = new RSA();
+                string PublicKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_publicKey.txt";
+                string PrivateKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_privateKey.txt";
+                rsa.generateKeys(PublicKeyFileName, PrivateKeyFileName);
                 ////////////
-                string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc);
+                string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc, PublicKeyFileName, PrivateKeyFileName);
                
                 if (isPassed.Equals("1"))
                 {
@@ -64,11 +67,11 @@ namespace Project01_ATMT
                 {
                     MessageBox.Show("Email already exists!");
                 }
-            }
+            /*}
             catch(Exception ex)
             {
                 MessageBox.Show("Failed to sign up new account!");
-            }
+            }*/
 
         }
 

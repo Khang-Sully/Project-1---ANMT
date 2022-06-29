@@ -21,8 +21,8 @@ create table RSA_KEY
 (
 	_Email varchar(100) not null,
 	_Passphare varbinary(max),
-	_Kpublic varbinary(max),
-	_Kprivate varbinary(max)
+	_Kpublic varchar(200),
+	_Kprivate varchar(200)
 	constraint PK_RSA_Key primary key(_Email)
 )
 
@@ -136,8 +136,8 @@ create procedure SP_SIGN_UP
 	@Fullname varchar(200),
 	@Phone varchar(20),
 	@Address varchar(200),
-	@KPublic varbinary(max),
-	@KPrivate varbinary(max)
+	@KPublic varchar(200),
+	@KPrivate varchar(200)
 
 )
 as
@@ -177,4 +177,4 @@ as
 select * from Account
 
 --test Account: Email: "test@gmail.com" ; Password: 123
-exec sp_executesql N'exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address',N'@Email nvarchar(14),@Password varbinary(32),@Phone nvarchar(3),@Fullname nvarchar(6),@Dob nvarchar(3),@Address nvarchar(3)',@Email=N'test@gmail.com',@Password=0xA665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3,@Phone=N'123',@Fullname=N'Testet',@Dob=N'123',@Address=N'123'
+--exec sp_executesql N'exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address',N'@Email nvarchar(14),@Password varbinary(32),@Phone nvarchar(3),@Fullname nvarchar(6),@Dob nvarchar(3),@Address nvarchar(3)',@Email=N'test@gmail.com',@Password=0xA665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3,@Phone=N'123',@Fullname=N'Testet',@Dob=N'123',@Address=N'123'
