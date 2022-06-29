@@ -48,9 +48,8 @@ namespace Project01_ATMT
                 tempAcc.Address = t_address.Text.ToString();
 
                 AES aes = new AES(tempAcc.Password);
-                RSA rsa = new RSA(aes);
-                DTO_rsakey tempRsaKEy = new DTO_rsakey();
-                tempRsaKEy.Email = t_email.Text.ToString();
+                
+
                 ////////////
                 string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc);
                

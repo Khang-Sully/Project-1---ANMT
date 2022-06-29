@@ -20,6 +20,5 @@ namespace Project01_ATMT
                 return hash;
             }
         }
-
     }
 }
