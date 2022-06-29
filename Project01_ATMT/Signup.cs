@@ -57,10 +57,7 @@ namespace Project01_ATMT
                 string privateKeyunCrepted = System.IO.File.ReadAllText(@PrivateKeyFileName);
                 byte[] tempPrivateKeyEncrypted = aes.Encrypt(Encoding.Unicode.GetBytes(privateKeyunCrepted));
                 string PrivateKeyEncrypted = BitConverter.ToString(tempPrivateKeyEncrypted);
-
-                StreamWriter sr = new System.IO.StreamWriter(@PrivateKeyFileName);
-                sr.Write(PrivateKeyEncrypted);
-                sr.Close();
+                System.IO.File.WriteAllText(@PrivateKeyFileName, PrivateKeyEncrypted);
 
                 string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc, @PublicKeyFileName, @PrivateKeyFileName);
                
