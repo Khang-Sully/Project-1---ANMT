@@ -151,5 +151,24 @@ namespace Project01_ATMT
                 this.t_saveasPath.ReadOnly = true;
             }
         }
+
+        private void btn_send_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(t_filepath.Text))
+            {
+                MessageBox.Show("File has not yet been uploaded.");
+                return;
+            }
+            if (String.IsNullOrEmpty(t_sendTo.Text))
+            {
+                MessageBox.Show("Enter the recipient's email address.");
+                return;
+            }
+            if (String.IsNullOrEmpty(t_saveasPath.Text))
+            {
+                MessageBox.Show("Choose a location for the file to be saved.");
+                return;
+            }
+        }
     }
 }

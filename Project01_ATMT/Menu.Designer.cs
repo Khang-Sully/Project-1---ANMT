@@ -46,18 +46,17 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgv_userlist = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.rb_sign = new System.Windows.Forms.RadioButton();
+            this.btn_send = new System.Windows.Forms.Button();
             this.rb_encrypt = new System.Windows.Forms.RadioButton();
             this.rb_decrypt = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.t_sendTo = new System.Windows.Forms.TextBox();
             this.t_saveasPath = new System.Windows.Forms.TextBox();
             this.btn_Saveas = new System.Windows.Forms.Button();
             this.t_filepath = new System.Windows.Forms.TextBox();
             this.btn_upload = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgv_notification = new System.Windows.Forms.DataGridView();
-            this.t_OK = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_userlist)).BeginInit();
@@ -248,12 +247,11 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.t_OK);
-            this.groupBox3.Controls.Add(this.rb_sign);
+            this.groupBox3.Controls.Add(this.btn_send);
             this.groupBox3.Controls.Add(this.rb_encrypt);
             this.groupBox3.Controls.Add(this.rb_decrypt);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.t_sendTo);
             this.groupBox3.Controls.Add(this.t_saveasPath);
             this.groupBox3.Controls.Add(this.btn_Saveas);
             this.groupBox3.Controls.Add(this.t_filepath);
@@ -267,22 +265,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Do";
             // 
-            // rb_sign
+            // btn_send
             // 
-            this.rb_sign.AutoSize = true;
-            this.rb_sign.Location = new System.Drawing.Point(207, 124);
-            this.rb_sign.Margin = new System.Windows.Forms.Padding(2);
-            this.rb_sign.Name = "rb_sign";
-            this.rb_sign.Size = new System.Drawing.Size(46, 17);
-            this.rb_sign.TabIndex = 5;
-            this.rb_sign.TabStop = true;
-            this.rb_sign.Text = "Sign";
-            this.rb_sign.UseVisualStyleBackColor = true;
+            this.btn_send.Location = new System.Drawing.Point(173, 194);
+            this.btn_send.Name = "btn_send";
+            this.btn_send.Size = new System.Drawing.Size(75, 27);
+            this.btn_send.TabIndex = 6;
+            this.btn_send.Text = "Send";
+            this.btn_send.UseVisualStyleBackColor = true;
+            this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
             // 
             // rb_encrypt
             // 
             this.rb_encrypt.AutoSize = true;
-            this.rb_encrypt.Location = new System.Drawing.Point(24, 124);
+            this.rb_encrypt.Location = new System.Drawing.Point(42, 124);
             this.rb_encrypt.Margin = new System.Windows.Forms.Padding(2);
             this.rb_encrypt.Name = "rb_encrypt";
             this.rb_encrypt.Size = new System.Drawing.Size(61, 17);
@@ -294,7 +290,7 @@
             // rb_decrypt
             // 
             this.rb_decrypt.AutoSize = true;
-            this.rb_decrypt.Location = new System.Drawing.Point(116, 124);
+            this.rb_decrypt.Location = new System.Drawing.Point(173, 124);
             this.rb_decrypt.Margin = new System.Windows.Forms.Padding(2);
             this.rb_decrypt.Name = "rb_decrypt";
             this.rb_decrypt.Size = new System.Drawing.Size(62, 17);
@@ -313,13 +309,13 @@
             this.label7.TabIndex = 4;
             this.label7.Text = "Send to";
             // 
-            // textBox1
+            // t_sendTo
             // 
-            this.textBox1.Location = new System.Drawing.Point(96, 80);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(153, 20);
-            this.textBox1.TabIndex = 3;
+            this.t_sendTo.Location = new System.Drawing.Point(96, 80);
+            this.t_sendTo.Margin = new System.Windows.Forms.Padding(2);
+            this.t_sendTo.Name = "t_sendTo";
+            this.t_sendTo.Size = new System.Drawing.Size(153, 20);
+            this.t_sendTo.TabIndex = 3;
             // 
             // t_saveasPath
             // 
@@ -381,15 +377,6 @@
             this.dgv_notification.Size = new System.Drawing.Size(266, 180);
             this.dgv_notification.TabIndex = 0;
             // 
-            // t_OK
-            // 
-            this.t_OK.Location = new System.Drawing.Point(173, 194);
-            this.t_OK.Name = "t_OK";
-            this.t_OK.Size = new System.Drawing.Size(75, 27);
-            this.t_OK.TabIndex = 6;
-            this.t_OK.Text = "Send";
-            this.t_OK.UseVisualStyleBackColor = true;
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -432,11 +419,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dgv_userlist;
-        private System.Windows.Forms.RadioButton rb_sign;
         private System.Windows.Forms.RadioButton rb_encrypt;
         private System.Windows.Forms.RadioButton rb_decrypt;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox t_sendTo;
         private System.Windows.Forms.TextBox t_saveasPath;
         private System.Windows.Forms.Button btn_Saveas;
         private System.Windows.Forms.TextBox t_filepath;
@@ -445,6 +431,6 @@
         private System.Windows.Forms.DataGridView dgv_notification;
         private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_edit;
-        private System.Windows.Forms.Button t_OK;
+        private System.Windows.Forms.Button btn_send;
     }
 }
