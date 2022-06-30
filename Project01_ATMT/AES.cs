@@ -17,7 +17,8 @@ namespace Project01_ATMT
             key = passphare;
         }
 
-    private static AesCryptoServiceProvider CreateProvider()
+        //AES key struct
+        private static AesCryptoServiceProvider CreateProvider()
         {
             AesCryptoServiceProvider cp = new AesCryptoServiceProvider();
             cp.KeySize = 256;
@@ -31,13 +32,17 @@ namespace Project01_ATMT
         public static byte[] Encrypt(byte[] data)
         {
             byte[] enc;
+            //check if data or key is empty
             if (data == null || data.Length <= 0)
                 throw new ArgumentNullException("data");
             if (key == null || key.Length <= 0)
                 throw new ArgumentNullException("key");
             using (AesCryptoServiceProvider csp = CreateProvider())
             {
+                //Create a instance transform data to instance of CryptoStream
                 ICryptoTransform encrypter = csp.CreateEncryptor();
+
+                //
                 enc = encrypter.TransformFinalBlock(data, 0, data.Length);
                 csp.Clear();
             }
@@ -47,6 +52,7 @@ namespace Project01_ATMT
         public static byte[] Decrypt(byte[] data)
         {
             byte[] dec;
+            //check if data or key is empty
             if (data == null || data.Length <= 0)
                 throw new ArgumentNullException("data");
             if (key == null || key.Length <= 0)
@@ -55,6 +61,7 @@ namespace Project01_ATMT
             {
                 try
                 {
+                    // Create a instance transform data to instance of CryptoStream
                     ICryptoTransform decrypter = csp.CreateDecryptor();
                     dec = decrypter.TransformFinalBlock(data, 0, data.Length);
                 }

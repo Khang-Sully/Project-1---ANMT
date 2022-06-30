@@ -13,6 +13,7 @@ namespace Project01_ATMT
             SHA256CryptoServiceProvider cp = new SHA256CryptoServiceProvider();
             return cp;
         }
+        //Hashing data
         public static byte[] Hash(byte[] data) {
             using (SHA256CryptoServiceProvider csp = CreateProvider()) {
                 byte[] hash = csp.ComputeHash(data);
