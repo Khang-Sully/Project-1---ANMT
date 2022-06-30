@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// GUI Menu Screen
 namespace Project01_ATMT
 {
     public partial class Menu : Form
@@ -21,6 +22,8 @@ namespace Project01_ATMT
             loadInfor(LoginEmail);
             
         }
+
+        // Set to ReadOnly Mode
         public void SetAllTextBoxToReadOnly()
         {
             t_Email.ReadOnly = true;
@@ -30,6 +33,8 @@ namespace Project01_ATMT
             t_dob.ReadOnly = true;
             t_Address.ReadOnly = true;
         }
+
+        // Set to Edit Mode
         public void EnableEditAllTextBox()
         {
             t_Password.ReadOnly = false;
@@ -38,6 +43,8 @@ namespace Project01_ATMT
             t_dob.ReadOnly = false;
             t_Address.ReadOnly = false;
         }
+
+        // Loading Information from Database
         public void loadInfor(string loginEmail)
         {
             DataTable data = DAO_Account.get_Instance().getUserInfo(loginEmail);
@@ -50,19 +57,25 @@ namespace Project01_ATMT
             this.t_Address.Text = data.Rows[0][5].ToString();
             SetAllTextBoxToReadOnly();
         }
+
+        // Send Edit Button
         private void btn_edit_Click(object sender, EventArgs e)
         {
             EnableEditAllTextBox();
             Edited = true;
         }
+
+        // Send Save Button
         private void btn_save_Click(object sender, EventArgs e)
         {
+            // Cannot save when there is any Textbox left Blank
             if (String.IsNullOrEmpty(t_Email.Text) || String.IsNullOrEmpty(t_Password.Text) || String.IsNullOrEmpty(t_Phone.Text) || String.IsNullOrEmpty(t_FullName.Text) || String.IsNullOrEmpty(t_dob.Text) || String.IsNullOrEmpty(t_Address.Text))
             {
                 MessageBox.Show("Text box cannot be left blank");
                 return;
             }
 
+            // 
             DTO_Account acc = new DTO_Account();
             acc.Email = t_Email.Text.ToString();
             acc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text));
