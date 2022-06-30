@@ -57,6 +57,7 @@
             this.btn_upload = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgv_notification = new System.Windows.Forms.DataGridView();
+            this.t_OK = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_userlist)).BeginInit();
@@ -247,6 +248,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.t_OK);
             this.groupBox3.Controls.Add(this.rb_sign);
             this.groupBox3.Controls.Add(this.rb_encrypt);
             this.groupBox3.Controls.Add(this.rb_decrypt);
@@ -321,7 +323,7 @@
             // 
             // t_saveasPath
             // 
-            this.t_saveasPath.Location = new System.Drawing.Point(96, 187);
+            this.t_saveasPath.Location = new System.Drawing.Point(96, 162);
             this.t_saveasPath.Margin = new System.Windows.Forms.Padding(2);
             this.t_saveasPath.Name = "t_saveasPath";
             this.t_saveasPath.Size = new System.Drawing.Size(153, 20);
@@ -329,13 +331,14 @@
             // 
             // btn_Saveas
             // 
-            this.btn_Saveas.Location = new System.Drawing.Point(22, 187);
+            this.btn_Saveas.Location = new System.Drawing.Point(22, 162);
             this.btn_Saveas.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Saveas.Name = "btn_Saveas";
             this.btn_Saveas.Size = new System.Drawing.Size(56, 19);
             this.btn_Saveas.TabIndex = 1;
             this.btn_Saveas.Text = "Save as";
             this.btn_Saveas.UseVisualStyleBackColor = true;
+            this.btn_Saveas.Click += new System.EventHandler(this.btn_Saveas_Click);
             // 
             // t_filepath
             // 
@@ -354,6 +357,7 @@
             this.btn_upload.TabIndex = 0;
             this.btn_upload.Text = "Upload";
             this.btn_upload.UseVisualStyleBackColor = true;
+            this.btn_upload.Click += new System.EventHandler(this.btn_upload_Click);
             // 
             // groupBox4
             // 
@@ -376,6 +380,15 @@
             this.dgv_notification.RowHeadersWidth = 51;
             this.dgv_notification.Size = new System.Drawing.Size(266, 180);
             this.dgv_notification.TabIndex = 0;
+            // 
+            // t_OK
+            // 
+            this.t_OK.Location = new System.Drawing.Point(173, 194);
+            this.t_OK.Name = "t_OK";
+            this.t_OK.Size = new System.Drawing.Size(75, 27);
+            this.t_OK.TabIndex = 6;
+            this.t_OK.Text = "Send";
+            this.t_OK.UseVisualStyleBackColor = true;
             // 
             // Menu
             // 
@@ -432,5 +445,6 @@
         private System.Windows.Forms.DataGridView dgv_notification;
         private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.Button t_OK;
     }
 }

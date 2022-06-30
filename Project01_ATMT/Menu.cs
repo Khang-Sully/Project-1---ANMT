@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 // GUI Menu Screen
 namespace Project01_ATMT
@@ -121,6 +122,34 @@ namespace Project01_ATMT
         public void reloadListDataTable() {
             this.dgv_userlist.DataSource = null;
             LoadListData();
+        }
+
+        private void btn_upload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileAttach = new OpenFileDialog();
+            fileAttach.Multiselect = false;
+
+            if (fileAttach.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = fileAttach.FileName;
+                //var readFile = File.ReadAllText(fileName);
+                this.t_filepath.Text = fileName;
+                this.t_filepath.ReadOnly = true;
+            }
+        }
+
+        private void btn_Saveas_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();    
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                folderBrowserDialog.Description = "Select a folder to send to:";
+                string folderName = folderBrowserDialog.SelectedPath;
+                folderBrowserDialog.ShowNewFolderButton = true;                
+                //var readFile = File.ReadAllText(fileName);
+                this.t_saveasPath.Text = folderName;
+                this.t_saveasPath.ReadOnly = true;
+            }
         }
     }
 }
