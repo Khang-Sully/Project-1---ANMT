@@ -6,29 +6,33 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
+// Connect to SQL Server
 namespace Project01_ATMT
 {
-    public class DataProvider
+    public class DataProvider // Provide a Connection to Database
     {
+        // Create Connection
         private string connectionSTR = "Data Source=" + System.Windows.Forms.SystemInformation.ComputerName + ";Initial Catalog=newBD_Account;Integrated Security=True";
-
+        
+        // Query Execution
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (SqlConnection connection = new SqlConnection(connectionSTR)) // Connect to SQL Server
             {
                 connection.Open();
 
+                // Create command
                 SqlCommand command = new SqlCommand(query, connection);
 
                 if (parameter != null)
                 {
-                    string[] listPara = query.Split(' ');
+                    string[] listPara = query.Split(' '); // Split each parameter
                     int i = 0;
                     foreach (string item in listPara)
                     {
-                        if (item.Contains('@'))
+                        if (item.Contains('@')) // Sign to recognize Command of Queries
                         {
                             command.Parameters.AddWithValue(item, parameter[i]);
                             i++;
@@ -36,7 +40,7 @@ namespace Project01_ATMT
                     }
                 }
 
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                SqlDataAdapter adapter = new SqlDataAdapter(command); // Fill up dataset for SQL Server Database
 
                 adapter.Fill(data);
 
@@ -45,22 +49,26 @@ namespace Project01_ATMT
 
             return data;
         }
+        
+        // Transact-SQL Statement Execution
         public int ExecuteNonQuery(string query, object[] parameter = null)
         {
             int data = 0;
 
+            // Create Connection
             using (SqlConnection connection = new SqlConnection(connectionSTR))
             {
                 connection.Open();
 
+                // Create Command
                 SqlCommand command = new SqlCommand(query, connection);
                 if (parameter != null)
                 {
-                    string[] listPara = query.Split(' ');
+                    string[] listPara = query.Split(' '); // Split each parameter
                     int i = 0;
                     foreach (string item in listPara)
                     {
-                        if (item.Contains('@'))
+                        if (item.Contains('@')) // Sign to recognize Command of Queries
                         {
                             command.Parameters.AddWithValue(item, parameter[i]);
                             i++;
