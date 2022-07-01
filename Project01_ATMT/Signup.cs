@@ -47,7 +47,9 @@ namespace Project01_ATMT
                 // Important Information for User to Login
                 tempAcc.Email = t_email.Text.ToString();
                 String pw = t_password.Text.ToString();
-                tempAcc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(pw));
+                //
+                string salt = "19127443";
+                tempAcc.Password = SHA256.Hash(pw, salt);
 
                 // More details about User
                 tempAcc.Phone = t_phone.Text.ToString();

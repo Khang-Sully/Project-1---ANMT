@@ -21,7 +21,6 @@ namespace Project01_ATMT
             InitializeComponent();
             LoadListData();
             loadInfor(LoginEmail);
-            
         }
 
         // Set to ReadOnly Mode
@@ -79,7 +78,9 @@ namespace Project01_ATMT
             // 
             DTO_Account acc = new DTO_Account();
             acc.Email = t_Email.Text.ToString();
-            acc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text));
+            //
+            string salt = "19127443";
+            acc.Password = SHA256.Hash(t_Password.Text, salt);
             acc.Phone = t_Phone.Text.ToString();
             acc.Fullname = t_FullName.Text.ToString();
             acc.dob = t_dob.Text.ToString();
@@ -88,7 +89,7 @@ namespace Project01_ATMT
             DAO_Account.get_Instance().EditAccount(acc);
             MessageBox.Show("Successfully edited information!");
             this.t_Password.Text = "Hidden*";
-
+            reloadListDataTable();
             SetAllTextBoxToReadOnly();
         }
         private DataTable ListToDataTable(List<String> col, List<DTO_Account> listOfUser) { 
@@ -126,29 +127,33 @@ namespace Project01_ATMT
 
         private void btn_upload_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileAttach = new OpenFileDialog();
-            fileAttach.Multiselect = false;
-
-            if (fileAttach.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog fileAttach = new OpenFileDialog() { Filter = "All files|*.*" })
             {
-                string fileName = fileAttach.FileName;
-                //var readFile = File.ReadAllText(fileName);
-                this.t_filepath.Text = fileName;
-                this.t_filepath.ReadOnly = true;
+                fileAttach.Multiselect = false;
+
+                if (fileAttach.ShowDialog() == DialogResult.OK)
+                {
+                    string fileName = fileAttach.FileName;
+                    //var readFile = File.ReadAllText(fileName);
+                    this.t_filepath.Text = fileName;
+                    this.t_filepath.ReadOnly = true;
+                }
             }
         }
 
         private void btn_Saveas_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();    
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
-                folderBrowserDialog.Description = "Select a folder to send to:";
-                string folderName = folderBrowserDialog.SelectedPath;
-                folderBrowserDialog.ShowNewFolderButton = true;                
-                //var readFile = File.ReadAllText(fileName);
-                this.t_saveasPath.Text = folderName;
-                this.t_saveasPath.ReadOnly = true;
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    folderBrowserDialog.Description = "Select a folder to send to:";
+                    string folderName = folderBrowserDialog.SelectedPath;
+                    folderBrowserDialog.ShowNewFolderButton = true;
+                    //var readFile = File.ReadAllText(fileName);
+                    this.t_saveasPath.Text = folderName;
+                    this.t_saveasPath.ReadOnly = true;
+                }
             }
         }
 
