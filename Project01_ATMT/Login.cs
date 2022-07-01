@@ -30,7 +30,7 @@ namespace Project01_ATMT
             //
             string salt = "19127443";
             // Hashing Data for Security storing
-            object[] hash = new object[2] { email, SHA256.Hash(password, salt) };
+            object[] hash = new object[2] { email, SHA256.Hash(Encoding.ASCII.GetBytes(password), salt) };
             
             // Provide User's Information from Database
             DataProvider dp = new DataProvider();

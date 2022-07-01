@@ -49,7 +49,7 @@ namespace Project01_ATMT
                 String pw = t_password.Text.ToString();
                 //
                 string salt = "19127443";
-                tempAcc.Password = SHA256.Hash(pw, salt);
+                tempAcc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(pw), salt);
 
                 // More details about User
                 tempAcc.Phone = t_phone.Text.ToString();

@@ -13,12 +13,14 @@ using System.IO;
 namespace Project01_ATMT
 {
     public partial class Menu : Form
-    {
+    { 
         public List<DTO_Account> listOfUser;
         public bool Edited = false;
+        public static string _email;
         public Menu(string LoginEmail)
         {
             InitializeComponent();
+            _email = LoginEmail;
             LoadListData();
             loadInfor(LoginEmail);
         }
@@ -50,12 +52,15 @@ namespace Project01_ATMT
             DataTable data = DAO_Account.get_Instance().getUserInfo(loginEmail);
             this.EnableEditAllTextBox();
             this.t_Email.Text = data.Rows[0][0].ToString();
-            this.t_Password.Text = "Hidden";
+            //this.t_Password.Text = "Hidden";
+            this.t_Password.Text = data.Rows[0][1].ToString();
             this.t_Phone.Text = data.Rows[0][2].ToString();
             this.t_FullName.Text = data.Rows[0][3].ToString();
             this.t_dob.Text = data.Rows[0][4].ToString();
             this.t_Address.Text = data.Rows[0][5].ToString();
             SetAllTextBoxToReadOnly();
+
+
         }
 
         // Send Edit Button
@@ -78,9 +83,9 @@ namespace Project01_ATMT
             // 
             DTO_Account acc = new DTO_Account();
             acc.Email = t_Email.Text.ToString();
-            //
+
             string salt = "19127443";
-            acc.Password = SHA256.Hash(t_Password.Text, salt);
+            acc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text), salt);
             acc.Phone = t_Phone.Text.ToString();
             acc.Fullname = t_FullName.Text.ToString();
             acc.dob = t_dob.Text.ToString();
@@ -88,7 +93,7 @@ namespace Project01_ATMT
 
             DAO_Account.get_Instance().EditAccount(acc);
             MessageBox.Show("Successfully edited information!");
-            this.t_Password.Text = "Hidden*";
+            //this.t_Password.Text = "Hidden*";
             reloadListDataTable();
             SetAllTextBoxToReadOnly();
         }
@@ -159,7 +164,7 @@ namespace Project01_ATMT
 
         private void btn_send_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(t_filepath.Text))
+/*            if (String.IsNullOrEmpty(t_filepath.Text))
             {
                 MessageBox.Show("File has not yet been uploaded.");
                 return;
@@ -173,7 +178,33 @@ namespace Project01_ATMT
             {
                 MessageBox.Show("Choose a location for the file to be saved.");
                 return;
-            }
+            }*/
+
+            byte[] data = File.ReadAllBytes(t_filepath.Text);
+
+            Console.WriteLine(data.Length);
+
+            string encryptedFileName = t_filepath.Text.Split('\\').Last() + "Encrypted";
+            Console.WriteLine(encryptedFileName);
+
+            DataTable tempUserdata = DAO_Account.get_Instance().getUserInfo(_email);
+            string tempPassphare = tempUserdata.Rows[0][1].ToString();
+
+            Console.WriteLine('*');
+            Console.WriteLine(tempPassphare);   
+            
+            Console.WriteLine('*');
+            /*AES aes = new AES(Encoding.ASCII.GetBytes(this.t_Password.Text));
+
+
+            byte[] encryptedData = aes.Encrypt(data);
+
+            Console.WriteLine(encryptedData);
+            Console.WriteLine(encryptedData.Length);*/
+            /*using (var stream = File.Create(@encryptedFileName))
+                stream.Write(encryptedData, 0, data.Length);*/
         }
     }
 }
+
+

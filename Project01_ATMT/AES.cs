@@ -17,7 +17,7 @@ namespace Project01_ATMT
             key = passphare;
         }
 
-        private AesCryptoServiceProvider CreateProvider()
+        private static AesCryptoServiceProvider CreateProvider()
         {
             AesCryptoServiceProvider cp = new AesCryptoServiceProvider();
             cp.KeySize = 256;
