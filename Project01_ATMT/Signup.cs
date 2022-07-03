@@ -49,7 +49,7 @@ namespace Project01_ATMT
                 String pw = t_password.Text.ToString();
                 //
                 string salt = "19127443";
-                tempAcc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(pw), salt);
+                tempAcc.Password = SHA256.Hash(Encoding.Unicode.GetBytes(pw), salt);
 
                 // More details about User
                 tempAcc.Phone = t_phone.Text.ToString();
@@ -62,9 +62,14 @@ namespace Project01_ATMT
                 string PublicKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_publicKey.txt";
                 string PrivateKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_privateKey.txt";
                 rsa.generateKeys(@PublicKeyFileName, @PrivateKeyFileName);
-                
+
+
+                //temp
+                string PK= File.ReadAllText(PublicKeyFileName);
+                string PPk = File.ReadAllText(PrivateKeyFileName);
+
                 // Encrypt Private Key by Passphase
-                AES aes = new AES(Encoding.Unicode.GetBytes(pw));
+                AES aes = new AES(tempAcc.Password);
                 string privateKeyunCrepted = System.IO.File.ReadAllText(@PrivateKeyFileName);
                 byte[] tempPrivateKeyEncrypted = aes.Encrypt(Encoding.Unicode.GetBytes(privateKeyunCrepted));
                 

@@ -1,5 +1,4 @@
 use master
-
 create database newBD_Account
 
 go
@@ -142,7 +141,7 @@ as
 		values (@FromEmail, @DestEmail, @SessionKey, @FileName)
 	End
 
-
+go
 
 drop procedure if exists SP_SIGN_UP
 go
@@ -217,9 +216,3 @@ as
 	End
 
 go
-
-
-		
-select * from Account
-select * from RSA_KEY
-select * from MFile

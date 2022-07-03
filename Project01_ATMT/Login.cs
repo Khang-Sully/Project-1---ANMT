@@ -23,40 +23,49 @@ namespace Project01_ATMT
         // Send Login Button
         private void btn_login_Click(object sender, EventArgs e)
         {
-            // Store Information from User
-            string email = t_Email.Text.ToString();
-            string password = t_Password.Text.ToString();
+            try
+            {
+                // Store Information from User
+                string email = t_Email.Text.ToString();
+                string password = t_Password.Text.ToString();
 
-            //
-            string salt = "19127443";
-            // Hashing Data for Security storing
-            object[] hash = new object[2] { email, SHA256.Hash(Encoding.ASCII.GetBytes(password), salt) };
-            
-            // Provide User's Information from Database
-            DataProvider dp = new DataProvider();
-            DataTable dt = dp.ExecuteQuery("EXEC SP_LOG_IN @Email , @Password", hash);
-            String isPassed = dt.Rows[0][0].ToString();
-            
-            // Is the Password correct?
-            if (isPassed.Equals("1")) {
-                if (Login.isLogged == false)
+                //
+                string salt = "19127443";
+                // Hashing Data for Security storing
+                object[] hash = new object[2] { email, SHA256.Hash(Encoding.Unicode.GetBytes(password), salt) };
+
+                // Provide User's Information from Database
+                DataProvider dp = new DataProvider();
+                DataTable dt = dp.ExecuteQuery("EXEC SP_LOG_IN @Email , @Password", hash);
+                String isPassed = dt.Rows[0][0].ToString();
+
+                // Is the Password correct?
+                if (isPassed.Equals("1"))
                 {
-                    MessageBox.Show("Logged in successfully!");
-                    Login.isLogged = true;
-                    Menu m = new Menu(email, Encoding.Unicode.GetBytes(password));
-                    this.Hide();
-                    m.ShowDialog();
+                    if (Login.isLogged == false)
+                    {
+                        MessageBox.Show("Logged in successfully!");
+                        Login.isLogged = true;
+                        Menu m = new Menu(email, password);
+                        this.Hide();
+                        m.ShowDialog();
+                    }
+                    // Caution!!! Logout the previous account before login
+                    else
+                    {
+                        MessageBox.Show("The previous account is not logged out!");
+                        this.Close();
+                    }
                 }
-                // Caution!!! Logout the previous account before login
-                else { 
-                    MessageBox.Show("The previous account is not logged out!");
-                    this.Close();
+                else
+                {
+                    // Incorrect Password message
+                    MessageBox.Show("Username or password incorrect!");
                 }
             }
-            else
-            {
-                // Incorrect Password message
-                MessageBox.Show("Username or password incorrect!");
+            catch (Exception login) {
+                MessageBox.Show("Login Error!");
+                return;
             }
         }
 

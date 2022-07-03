@@ -77,7 +77,7 @@ namespace Project01_ATMT
                 }
             }
         }
-        public string Encrypt(string InputText, string PublicKeyFileName)
+        public string Encrypt(byte[] InputBytes, string PublicKeyFileName)
         {
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
@@ -93,8 +93,8 @@ namespace Project01_ATMT
                 //encrypt
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(publicKey);
-                var bytesPlainTextData = System.Text.Encoding.Unicode.GetBytes(InputText);
-                var bytesCypherText = rsa.Encrypt(bytesPlainTextData, false);
+                ;
+                var bytesCypherText = rsa.Encrypt(InputBytes, false);
                 //Fix string(bytes -> string)
                 var cypherText = Convert.ToBase64String(bytesCypherText);
                 /*StreamWriter sw = new System.IO.StreamWriter("encrypted.txt");
@@ -104,13 +104,12 @@ namespace Project01_ATMT
                 return cypherText;
             }
         }
-        public string Decrypt(string InputText, string PrivateKey)
+        public byte[] Decrypt(byte[] InputBytes, string PrivateKey)
         {
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 //Private Key
-                string privatekeystring = PrivateKey;
-                var st2 = new System.IO.StringReader(privatekeystring);
+                var st2 = new System.IO.StringReader(PrivateKey);
                 var xs2 = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
                 privateKey = (RSAParameters)xs2.Deserialize(st2);
 
@@ -121,10 +120,9 @@ namespace Project01_ATMT
                  */
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(privateKey);
-                var bytesCypherText = Convert.FromBase64String(InputText);
-                var bytesPlainTextData = rsa.Decrypt(bytesCypherText, false);
+                var bytesPlainTextData = rsa.Decrypt(InputBytes, false);
                 string decrypted_text = System.Text.Encoding.Unicode.GetString(bytesPlainTextData);
-                return decrypted_text;
+                return bytesPlainTextData;
             }
         }
 

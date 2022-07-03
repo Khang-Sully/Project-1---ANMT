@@ -90,7 +90,7 @@ namespace Project01_ATMT
         {
             DataProvider dp = new DataProvider();
             object[] data = new object[2] { Email , Filepath };
-            DataTable dt = dp.ExecuteQuery("exec SP_GET_SESSIONKEY @Email, @FilePath", data);
+            DataTable dt = dp.ExecuteQuery("exec SP_GET_SESSIONKEY @Email , @FilePath", data);
 
             String sessionKey = dt.Rows[0][0].ToString();
             return sessionKey;

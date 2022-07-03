@@ -17,8 +17,8 @@ namespace Project01_ATMT
         public List<DTO_Account> listOfUser;
         public bool Edited = false;
         public static string _email;
-        public byte[] _password;
-        public Menu(string LoginEmail, byte[] password)
+        public string _password;
+        public Menu(string LoginEmail, String password)
         {
             InitializeComponent();
             _email = LoginEmail;
@@ -87,7 +87,7 @@ namespace Project01_ATMT
             acc.Email = t_Email.Text.ToString();
 
             string salt = "19127443";
-            acc.Password = SHA256.Hash(Encoding.ASCII.GetBytes(t_Password.Text), salt);
+            acc.Password = SHA256.Hash(Encoding.Unicode.GetBytes(t_Password.Text), salt);
             acc.Phone = t_Phone.Text.ToString();
             acc.Fullname = t_FullName.Text.ToString();
             acc.dob = t_dob.Text.ToString();
@@ -195,6 +195,7 @@ namespace Project01_ATMT
                     string KpublicFilePath = DAO_Account.get_Instance().GetPublickey(t_sendTo.Text.ToString());
 
                     byte[] sessionkey = AES.genSessionKey();
+                    
                     AES aes = new AES(sessionkey);
 
                     byte[] encryptedData = aes.Encrypt(data);
@@ -202,11 +203,11 @@ namespace Project01_ATMT
                     using (var stream = File.Create(@encryptedFilePath))
                         stream.Write(encryptedData, 0, encryptedData.Length);
 
-                    string SessionkeyEncrypt = rsa.Encrypt(Encoding.Default.GetString(sessionkey), KpublicFilePath);
-
+                    string SessionkeyEncrypt = rsa.Encrypt(sessionkey, KpublicFilePath);
+                    
                     DAO_Account.get_Instance().AddMFile(_email, t_sendTo.Text.ToString(), SessionkeyEncrypt, encryptedFileName);
-
-                    //MessageBox.Show("File Send Successfully");
+                    
+                    MessageBox.Show("File Send Successfully");
                 }
                 else if (this.rb_decrypt.Checked == true)
                 {
@@ -227,22 +228,26 @@ namespace Project01_ATMT
                     string decryptedFileName = encryptedFileName.Replace("Encrypted", "");
                     string decryptedFilePath = t_saveasPath.Text.ToString() + "\\" + decryptedFileName;
 
-                    String sessionkey_Encrypted = DAO_Account.get_Instance().GetSessionKey(_email, encryptedFileName);
+                    string sessionkey_Encrypted = DAO_Account.get_Instance().GetSessionKey(_email, encryptedFileName);
+
                     string PrivatekeyFilePath = DAO_Account.get_Instance().GetPrivateKey(_email);
-
                     byte[] privatekeyEncrypted = File.ReadAllBytes(PrivatekeyFilePath);
-                    AES aesDecryptPrivateKey = new AES(_password);
+                    string salt = "19127443";
+                    AES aesDecryptPrivateKey = new AES(SHA256.Hash(Encoding.Unicode.GetBytes(_password), salt));
                     byte[] privateKey = aesDecryptPrivateKey.Decrypt(privatekeyEncrypted);
-
+                    
                     RSA rsa = new RSA();
-                    string sessionkey = rsa.Decrypt(sessionkey_Encrypted, Encoding.Unicode.GetString(privateKey));
+                    //
+                    //Console.WriteLine(Encoding.Unicode.GetString(privateKey));
+                    
+                    byte[] sessionkey = rsa.Decrypt(Encoding.Unicode.GetBytes(sessionkey_Encrypted), Encoding.Unicode.GetString(privateKey));
 
-                    AES aes = new AES(System.Text.Encoding.Unicode.GetBytes(sessionkey));
+                    AES aes = new AES(sessionkey);
                     byte[] data = aes.Decrypt(dataEncrypted);
 
                     File.WriteAllBytes(decryptedFilePath, data);
 
-                    //MessageBox.Show("Decrypt file Successfully");
+                    MessageBox.Show("Decrypt file Successfully");
                 }
                 else
                 {
@@ -250,7 +255,7 @@ namespace Project01_ATMT
                     return;
                 }
             }
-            catch
+            catch(Exception m)
             {
                 MessageBox.Show("Error");
                 return;
