@@ -30,9 +30,11 @@ create table MFile
 (
 	_FromEmail varchar(100) not null,
 	_DestEmail varchar(100) not null,
+	_SessionKey varchar(100) not null,
 	_fileName nvarchar(200) not null
 	constraint PK_FILE primary key(_FromEmail, _DestEmail, _fileName)
 )
+
 go
 
 alter table RSA_KEY
@@ -125,6 +127,22 @@ as
 	end
 go
 
+drop procedure if exists SP_ADD_MFILE
+go
+create procedure SP_ADD_MFILE
+(
+	@FromEmail varchar(100),
+	@DestEmail varchar(100),
+	@SessionKey varchar(100),
+	@FileName varchar(200)
+)
+as
+	Begin
+		insert into MFile
+		values (@FromEmail, @DestEmail, @SessionKey, @FileName)
+	End
+
+
 
 drop procedure if exists SP_SIGN_UP
 go
@@ -158,23 +176,50 @@ as
 
 go
 
-/*
-drop procedure if exists SP_SU_ADD_RSAKEY
+drop procedure if exists SP_SEL_PUBLICKEY
 go
-create procedure SP_SU_ADD_RSAKEY
+create procedure SP_SEL_PUBLICKEY
 (
-	@Email varchar(100),
-	@Password varbinary(max),
-	@Kpublic varbinary(max),
-	@Kprivate varbinary(max)
+	@Email varchar(100)
 )
 as
 	Begin
-		insert into RSA_KEY(_Email, _Passphare, _Kpublic, _Kprivate)
-		values (@Email, @Password, @Kpublic, @Kprivate)
-	end
-*/
-select * from Account
+		select _Kpublic from RSA_KEY
+		where RSA_KEY._Email= @Email
+	End
 
---test Account: Email: "test@gmail.com" ; Password: 123
---exec sp_executesql N'exec SP_SIGN_UP @Email , @Password , @Phone , @Fullname , @Dob , @Address',N'@Email nvarchar(14),@Password varbinary(32),@Phone nvarchar(3),@Fullname nvarchar(6),@Dob nvarchar(3),@Address nvarchar(3)',@Email=N'test@gmail.com',@Password=0xA665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3,@Phone=N'123',@Fullname=N'Testet',@Dob=N'123',@Address=N'123'
+go
+
+drop procedure if exists SP_SEL_PRIVATEKEY
+go
+create procedure SP_SEL_PRIVATEKEY
+(
+	@Email varchar(100)
+)
+as
+	Begin
+		select _Kprivate from RSA_KEY
+		where RSA_KEY._Email = @Email
+	End
+go
+
+drop procedure if exists SP_GET_SESSIONKEY
+go
+create procedure SP_GET_SESSIONKEY
+(
+	@Email varchar(100),
+	@FileName varchar(200)
+)
+as
+	Begin
+		select f._SessionKey from MFile as f
+		where f._DestEmail =@Email and f._fileName = @FileName
+	End
+
+go
+
+
+		
+select * from Account
+select * from RSA_KEY
+select * from MFile

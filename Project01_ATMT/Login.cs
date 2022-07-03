@@ -43,7 +43,7 @@ namespace Project01_ATMT
                 {
                     MessageBox.Show("Logged in successfully!");
                     Login.isLogged = true;
-                    Menu m = new Menu(email);
+                    Menu m = new Menu(email, Encoding.Unicode.GetBytes(password));
                     this.Hide();
                     m.ShowDialog();
                 }

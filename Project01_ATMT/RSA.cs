@@ -15,9 +15,9 @@ namespace Project01_ATMT
         private static RSAParameters publicKey;
         private static RSAParameters privateKey;
 
-        public void SerializeKeys(string PublicKeyFileName, string PrivateKeyFileName)
+        public void SerializeKeys(string PublicKeyFileName , string PrivateKeyFileName )
         {
-            using (var rsa = new RSACryptoServiceProvider(4096))
+            using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 try
                 {
@@ -48,7 +48,7 @@ namespace Project01_ATMT
         }
         public void generateKeys(string PublicKeyFileName, string PrivateKeyFileName)
         {
-            using (var rsa = new RSACryptoServiceProvider(4096))
+            using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 rsa.PersistKeyInCsp = false;
                 publicKey = rsa.ExportParameters(false);
@@ -77,10 +77,20 @@ namespace Project01_ATMT
                 }
             }
         }
-        public string Encrypt(string InputText)
+        public string Encrypt(string InputText, string PublicKeyFileName)
         {
-            using (var rsa = new RSACryptoServiceProvider(4096))
+            using (var rsa = new RSACryptoServiceProvider(2048))
             {
+                //Public Key
+                string publickeystring;
+                StreamReader sr = new System.IO.StreamReader(PublicKeyFileName);
+                publickeystring = sr.ReadToEnd();
+                sr.Close();
+                var st = new System.IO.StringReader(publickeystring);
+                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                publicKey = (RSAParameters)xs.Deserialize(st);
+                
+                //encrypt
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(publicKey);
                 var bytesPlainTextData = System.Text.Encoding.Unicode.GetBytes(InputText);
@@ -94,10 +104,16 @@ namespace Project01_ATMT
                 return cypherText;
             }
         }
-        public string Decrypt(string InputText)
+        public string Decrypt(string InputText, string PrivateKey)
         {
-            using (var rsa = new RSACryptoServiceProvider(4096))
+            using (var rsa = new RSACryptoServiceProvider(2048))
             {
+                //Private Key
+                string privatekeystring = PrivateKey;
+                var st2 = new System.IO.StringReader(privatekeystring);
+                var xs2 = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                privateKey = (RSAParameters)xs2.Deserialize(st2);
+
                 /*string encrypted_string;
                 StreamReader sr = new System.IO.StreamReader("encrypted.txt");
                 encrypted_string = sr.ReadLine();

@@ -59,5 +59,41 @@ namespace Project01_ATMT
             object[] data = new object[6] { acc.Email, acc.Password, acc.Phone, acc.Fullname, acc.dob, acc.Address};
             dp.ExecuteQuery("exec SP_UPDATE_ACCOUNT @Email , @Password , @Phone , @Fullname , @Dob , @Address", data);
         }
+
+        public string GetPublickey(String Email) 
+        {
+            DataProvider dp = new DataProvider();
+            object[] data = new object[1] { Email };
+            DataTable dt =dp.ExecuteQuery("exec SP_SEL_PUBLICKEY @Email", data);
+
+            string PublicKeyFilePath = dt.Rows[0][0].ToString();
+            return PublicKeyFilePath;
+        }
+        public string GetPrivateKey(String Email)
+        {
+            DataProvider dp = new DataProvider();
+            object[] data = new object[1] { Email };
+            DataTable dt = dp.ExecuteQuery("exec SP_SEL_PRIVATEKEY @Email", data);
+
+            string PublicKeyFilePath = dt.Rows[0][0].ToString();
+            return PublicKeyFilePath;
+        }
+        public void AddMFile(String FromEmail, String DestEmail, String SessionKey, String Filename)
+        {
+            DataProvider dp = new DataProvider();
+            object[] data = new object[4] { FromEmail, DestEmail, SessionKey, Filename };
+            dp.ExecuteQuery("exec SP_ADD_MFILE @FromEmail , @DestEmail , @SessionKey , @FilePath", data);
+
+        }
+
+        public String GetSessionKey(string Email, string Filepath)
+        {
+            DataProvider dp = new DataProvider();
+            object[] data = new object[2] { Email , Filepath };
+            DataTable dt = dp.ExecuteQuery("exec SP_GET_SESSIONKEY @Email, @FilePath", data);
+
+            String sessionKey = dt.Rows[0][0].ToString();
+            return sessionKey;
+        }
     }
 }

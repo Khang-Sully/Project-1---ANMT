@@ -63,13 +63,13 @@ namespace Project01_ATMT
                 string PrivateKeyFileName = "../../../Key/" + tempAcc.Email + "_rsa_privateKey.txt";
                 rsa.generateKeys(@PublicKeyFileName, @PrivateKeyFileName);
                 
-                // Encrypt User Password
-                AES aes = new AES(tempAcc.Password);
+                // Encrypt Private Key by Passphase
+                AES aes = new AES(Encoding.Unicode.GetBytes(pw));
                 string privateKeyunCrepted = System.IO.File.ReadAllText(@PrivateKeyFileName);
                 byte[] tempPrivateKeyEncrypted = aes.Encrypt(Encoding.Unicode.GetBytes(privateKeyunCrepted));
-                string PrivateKeyEncrypted = BitConverter.ToString(tempPrivateKeyEncrypted);
-                System.IO.File.WriteAllText(@PrivateKeyFileName, PrivateKeyEncrypted);
-
+                
+                System.IO.File.WriteAllBytes(@PrivateKeyFileName, tempPrivateKeyEncrypted);
+               
                 // Add Account into Database
                 string isPassed = DAO_Account.get_Instance().AddAccount(tempAcc, @PublicKeyFileName, @PrivateKeyFileName);
 

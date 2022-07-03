@@ -17,10 +17,12 @@ namespace Project01_ATMT
         public List<DTO_Account> listOfUser;
         public bool Edited = false;
         public static string _email;
-        public Menu(string LoginEmail)
+        public byte[] _password;
+        public Menu(string LoginEmail, byte[] password)
         {
             InitializeComponent();
             _email = LoginEmail;
+            _password = password;
             LoadListData();
             loadInfor(LoginEmail);
         }
@@ -164,45 +166,100 @@ namespace Project01_ATMT
 
         private void btn_send_Click(object sender, EventArgs e)
         {
-/*            if (String.IsNullOrEmpty(t_filepath.Text))
+            try
             {
-                MessageBox.Show("File has not yet been uploaded.");
+                if (this.rb_encrypt.Checked == true)
+                {
+                    if (String.IsNullOrEmpty(t_filepath.Text))
+                    {
+                        MessageBox.Show("File has not yet been uploaded.");
+                        return;
+                    }
+                    if (String.IsNullOrEmpty(t_sendTo.Text))
+                    {
+                        MessageBox.Show("Enter the recipient's email address.");
+                        return;
+                    }
+                    if (String.IsNullOrEmpty(t_saveasPath.Text))
+                    {
+                        MessageBox.Show("Choose a location for the file to be saved.");
+                        return;
+                    }
+
+                    byte[] data = File.ReadAllBytes(t_filepath.Text);
+                    
+                    string encryptedFileName = t_filepath.Text.ToString().Split('\\').Last() + "Encrypted";
+                    string encryptedFilePath = t_saveasPath.Text.ToString() + "\\" + encryptedFileName;
+                   
+                    RSA rsa = new RSA();
+                    string KpublicFilePath = DAO_Account.get_Instance().GetPublickey(t_sendTo.Text.ToString());
+
+                    byte[] sessionkey = AES.genSessionKey();
+                    AES aes = new AES(sessionkey);
+
+                    byte[] encryptedData = aes.Encrypt(data);
+
+                    using (var stream = File.Create(@encryptedFilePath))
+                        stream.Write(encryptedData, 0, encryptedData.Length);
+
+                    string SessionkeyEncrypt = rsa.Encrypt(Encoding.Default.GetString(sessionkey), KpublicFilePath);
+
+                    DAO_Account.get_Instance().AddMFile(_email, t_sendTo.Text.ToString(), SessionkeyEncrypt, encryptedFileName);
+
+                    //MessageBox.Show("File Send Successfully");
+                }
+                else if (this.rb_decrypt.Checked == true)
+                {
+                    if (String.IsNullOrEmpty(t_filepath.Text))
+                    {
+                        MessageBox.Show("File has not yet been uploaded.");
+                        return;
+                    }
+
+                    if (String.IsNullOrEmpty(t_saveasPath.Text))
+                    {
+                        MessageBox.Show("Choose a location for the file to be saved.");
+                        return;
+                    }
+                    byte[] dataEncrypted = File.ReadAllBytes(t_filepath.Text);
+
+                    string encryptedFileName = t_filepath.Text.ToString().Split('\\').Last();
+                    string decryptedFileName = encryptedFileName.Replace("Encrypted", "");
+                    string decryptedFilePath = t_saveasPath.Text.ToString() + "\\" + decryptedFileName;
+
+                    String sessionkey_Encrypted = DAO_Account.get_Instance().GetSessionKey(_email, encryptedFileName);
+                    string PrivatekeyFilePath = DAO_Account.get_Instance().GetPrivateKey(_email);
+
+                    byte[] privatekeyEncrypted = File.ReadAllBytes(PrivatekeyFilePath);
+                    AES aesDecryptPrivateKey = new AES(_password);
+                    byte[] privateKey = aesDecryptPrivateKey.Decrypt(privatekeyEncrypted);
+
+                    RSA rsa = new RSA();
+                    string sessionkey = rsa.Decrypt(sessionkey_Encrypted, Encoding.Unicode.GetString(privateKey));
+
+                    AES aes = new AES(System.Text.Encoding.Unicode.GetBytes(sessionkey));
+                    byte[] data = aes.Decrypt(dataEncrypted);
+
+                    File.WriteAllBytes(decryptedFilePath, data);
+
+                    //MessageBox.Show("Decrypt file Successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Choose Encrypt or Decrypt!");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error");
                 return;
             }
-            if (String.IsNullOrEmpty(t_sendTo.Text))
-            {
-                MessageBox.Show("Enter the recipient's email address.");
-                return;
-            }
-            if (String.IsNullOrEmpty(t_saveasPath.Text))
-            {
-                MessageBox.Show("Choose a location for the file to be saved.");
-                return;
-            }*/
+        }
 
-            byte[] data = File.ReadAllBytes(t_filepath.Text);
-
-            Console.WriteLine(data.Length);
-
-            string encryptedFileName = t_filepath.Text.Split('\\').Last() + "Encrypted";
-            Console.WriteLine(encryptedFileName);
-
-            DataTable tempUserdata = DAO_Account.get_Instance().getUserInfo(_email);
-            string tempPassphare = tempUserdata.Rows[0][1].ToString();
-
-            Console.WriteLine('*');
-            Console.WriteLine(tempPassphare);   
-            
-            Console.WriteLine('*');
-            /*AES aes = new AES(Encoding.ASCII.GetBytes(this.t_Password.Text));
-
-
-            byte[] encryptedData = aes.Encrypt(data);
-
-            Console.WriteLine(encryptedData);
-            Console.WriteLine(encryptedData.Length);*/
-            /*using (var stream = File.Create(@encryptedFileName))
-                stream.Write(encryptedData, 0, data.Length);*/
+        private void sendNotification(String sendTo, int level, string content) 
+        {
+            return;
         }
     }
 }

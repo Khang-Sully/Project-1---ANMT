@@ -22,12 +22,6 @@ namespace Project01_ATMT
             }
             return Instance;
         }
-        public void AddRSAKey(DTO_rsakey rsakey)
-        {
-            DataProvider dp = new DataProvider();
-            object[] data = new object[4] { rsakey.Email, rsakey.Password, rsakey.Kpublic, rsakey.Kprivate };
-            dp.ExecuteQuery("exec SP_SIGN_UP @Email , @Password , @Kpublic , @Kprivate", data);
-        }
     }
 
 }

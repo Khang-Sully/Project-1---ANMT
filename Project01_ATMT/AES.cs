@@ -17,6 +17,15 @@ namespace Project01_ATMT
             key = passphare;
         }
 
+        public static byte[] genSessionKey(int lenSessionKey = 16) { 
+            Random rnd = new Random();
+            byte[] newSessionKey = new byte[lenSessionKey];
+            
+            rnd.NextBytes(newSessionKey);
+
+            return newSessionKey;
+        }
+
         private static AesCryptoServiceProvider CreateProvider()
         {
             AesCryptoServiceProvider cp = new AesCryptoServiceProvider();

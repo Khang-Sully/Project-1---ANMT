@@ -51,7 +51,7 @@ namespace Project01_ATMT
         }
         
         // Transact-SQL Statement Execution
-        public int ExecuteNonQuery(string query, object[] parameter = null)
+        /*public int ExecuteNonQuery(string query, object[] parameter = null)
         {
             int data = 0;
 
@@ -81,9 +81,9 @@ namespace Project01_ATMT
                 connection.Close();
             }
             return data;
-        }
+        }*/
 
-        public object ExecuteScalar(string query, object[] parameter = null)
+       /* public object ExecuteScalar(string query, object[] parameter = null)
         {
             object data = 0;
 
@@ -113,6 +113,6 @@ namespace Project01_ATMT
             }
 
             return data;
-        }
+        }*/ 
     }
 }
